@@ -12,12 +12,12 @@ DROP DATABASE IF EXISTS `languages`;
 
 CREATE DATABASE IF NOT EXISTS `webDevelopment` CHARACTER SET utf8;
 USE `webDevelopment`;
-CREATE TABLE `languages` ( `id` INT PRIMARY KEY DEFAULT, `language` VARCHAR(100) );
-CREATE TABLE `tools` ( `id` INT PRIMARY KEY DEFAULT, `tool` VARCHAR(100) );
-CREATE TABLE `frameworks` ( `id` INT PRIMARY KEY DEFAULT, `framework` VARCHAR(100) );
-CREATE TABLE `libraries` ( `id` INT PRIMARY KEY DEFAULT, `librarie` VARCHAR(100) );
-CREATE TABLE `ide` ( `id` INT PRIMARY KEY DEFAULT, `ideName` VARCHAR(100) );
-CREATE TABLE `frameworks` ( `id` INT PRIMARY KEY DEFAULT, `name` VARCHAR(100) );
+CREATE TABLE `languages` ( `id` INT PRIMARY KEY AUTO_INCREMENT, `language` VARCHAR(100) );
+CREATE TABLE `tools` ( `id` INT PRIMARY KEY AUTO_INCREMENT, `tool` VARCHAR(100) );
+CREATE TABLE `frameworks` ( `id` INT PRIMARY KEY AUTO_INCREMENT, `name` VARCHAR(100) );
+CREATE TABLE `libraries` ( `id` INT PRIMARY KEY AUTO_INCREMENT, `librarie` VARCHAR(100) );
+CREATE TABLE `ide` ( `id` INT PRIMARY KEY AUTO_INCREMENT, `ideName` VARCHAR(100) );
+CREATE TABLE IF NOT EXISTS `frameworks` ( `id` INT PRIMARY KEY AUTO_INCREMENT, `name` VARCHAR(100) );
 DROP TABLE IF EXISTS `tools`;
 DROP TABLE `libraries`;
 DROP TABLE `ide`;
@@ -41,19 +41,20 @@ CREATE TABLE `clients`
 CREATE DATABASE IF NOT EXISTS `webDevelopment` CHARACTER SET utf8;
 USE `webDevelopment`;
 
-ALTER TABLE `languages`;
+ALTER TABLE `languages`
 ADD `versions` VARCHAR(100);
 
-ALTER TABLE `frameworks`;
+ALTER TABLE `frameworks`
 ADD `version` INT;
 
-ALTER TABLE `languages`;
+ALTER TABLE `languages`
 CHANGE `versions` `version` VARCHAR(100);
 
-ALTER TABLE `frameworks`;
+ALTER TABLE `frameworks`
 CHANGE `name` `framework` VARCHAR(100);
 
-ALTER TABLE `frameworks`;
+ALTER TABLE `frameworks`
+-- MODIFY `version` VARCHAR(10);
    ALTER COLUMN `version` VARCHAR(10);
 
 --tp part3
@@ -75,3 +76,49 @@ ADD `city` VARCHAR(100);
 
 
  -- partie 4
+
+USE `webDevelopment`;
+
+INSERT INTO `languages` (`language`, `version`)
+ VALUES
+ ('JavaScript', 'version 5'),
+ ('PHP', 'version 5.2'),
+ ('PHP', 'version 5.4'),
+ ('HTML', 'version 5.1'),
+ ('JavaScript', 'version 6'),
+ ('JavaScript', 'version 7'),
+ ('JavaScript', 'version 8'),
+ ('PHP', 'version 7');
+
+ INSERT INTO `frameworks` (`framework`, `version`)
+ VALUES
+ ('Symfony', 'version 2.8'),
+ ('Symfony', 'version 3'),
+ ('Jquery', 'version 1.6'),
+ ('Jquery', 'version 2.10');
+
+ -- partie 5
+
+-- Dans la table languages, afficher toutes les données de la table.
+SELECT * FROM `languages`;
+
+-- Dans la table languages, afficher toutes les versions de PHP.
+SELECT `version` FROM `languages` WHERE `language` = 'PHP';
+
+-- Dans la table languages, afficher toutes les versions de PHP et de JavaScript.
+SELECT `version` FROM `languages` WHERE `language` = 'PHP' OR `language` = 'JavaScript'; 
+
+-- Dans la table languages, afficher toutes les lignes ayant pour id 3,5,7.
+SELECT * FROM `languages` WHERE `id` = 3 OR `id` = 5 OR `id` = 7; 
+
+-- Dans la table languages, afficher les deux première entrées de JavaScript.
+SELECT * FROM `languages` WHERE `language` = 'javaScript' LIMIT 2;
+
+-- Dans la table languages, afficher toutes les lignes qui ne sont pas du PHP.
+SELECT * FROM `languages` WHERE `language` <> 'PHP';
+
+-- Dans la table languages, afficher toutes les données par ordre alphabétique.
+SELECT * FROM `languages` ORDER BY `language`;
+
+
+-- partie 6
