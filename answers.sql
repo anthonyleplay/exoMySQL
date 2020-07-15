@@ -92,10 +92,10 @@ INSERT INTO `languages` (`language`, `version`)
 
  INSERT INTO `frameworks` (`framework`, `version`)
  VALUES
- ('Symfony', 'version 2.8'),
- ('Symfony', 'version 3'),
- ('Jquery', 'version 1.6'),
- ('Jquery', 'version 2.10');
+ ('Symfony', '2.8'),
+ ('Symfony', '3'),
+ ('Jquery', '1.6'),
+ ('Jquery', '2.10');
 
  -- partie 5
 
@@ -123,11 +123,24 @@ SELECT * FROM `languages` ORDER BY `language`;
 
 -- partie 6
 
-SELECT * FROM `frameworks` WHERE `version` BETWEEN 2 AND 3;
+SELECT * FROM `frameworks` WHERE `version` LIKE '2.%';
 
 SELECT * FROM `frameworks` WHERE `id` IN (1, 3);
 
 SELECT * FROM `ide` WHERE `date` BETWEEN '2010-01-01' AND '2011-12-31' ;
 
 --partie 7
+
+DELETE FROM `languages` 
+WHERE `language` LIKE '%PHP%';
+
+UPDATE `frameworks`
+SET `framework` = 'Symfony2'
+WHERE `framework` = 'Symfony';
+
+UPDATE `languages`
+SET `version` = 'version 5.1'
+WHERE `language` = 'JavaScript' AND `version` = 'version 5';
+
+-- partie 8
 
