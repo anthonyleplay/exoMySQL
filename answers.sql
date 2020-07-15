@@ -123,24 +123,59 @@ SELECT * FROM `languages` ORDER BY `language`;
 
 -- partie 6
 
+-- Dans la table frameworks, afficher toutes les données de la table ayant une version 2.x (x étant un numéro quelconque).
 SELECT * FROM `frameworks` WHERE `version` LIKE '2.%';
 
+-- Dans la table frameworks, afficher toutes les lignes ayant pour id 1 et 3.
 SELECT * FROM `frameworks` WHERE `id` IN (1, 3);
 
+-- Dans la table ide, afficher toutes les lignes ayant une date comprise entre le premier janvier 2010 et le 31 decembre 2011.
 SELECT * FROM `ide` WHERE `date` BETWEEN '2010-01-01' AND '2011-12-31' ;
 
 --partie 7
 
+-- Dans la table languages, supprimer toutes les lignes parlant de HTML.
 DELETE FROM `languages` 
-WHERE `language` LIKE '%PHP%';
+WHERE `language` LIKE '%HTML%';
 
+-- Dans la table frameworks, modifier toutes les lignes ayant le framework Symfony par Symfony2.
 UPDATE `frameworks`
 SET `framework` = 'Symfony2'
 WHERE `framework` = 'Symfony';
 
+-- Dans la table languages, modifier la ligne du langage JavaScript version 5 par la version 5.1.
 UPDATE `languages`
 SET `version` = 'version 5.1'
 WHERE `language` = 'JavaScript' AND `version` = 'version 5';
 
 -- partie 8
 
+USE `development`;
+
+-- Afficher tous les frameworks associés à leurs langages. Si un langage n'a pas de framework l'afficher aussi.
+SELECT *
+FROM `languages`
+LEFT JOIN `frameworks` 
+ON `languages`.`id` = `frameworks`.`languagesId`;
+
+-- Afficher tous les frameworks associés à leurs langages. Si un langage n'a pas de framework ne pas l'afficher.
+SELECT *
+FROM `languages`
+INNER JOIN `frameworks` 
+ON `languages`.`id` = `frameworks`.`languagesId`;
+
+-- Afficher le nombre de framework qu'a un langage.
+SELECT `languages`.`name`, COUNT(`frameworks`.`name`)
+FROM `languages`
+LEFT JOIN `frameworks` 
+ON `languages`.`id` = `frameworks`.`languagesId`
+GROUP BY `languages`.`name`;
+
+
+-- Afficher les langages ayant plus de 3 frameworks.
+SELECT `languages`.`name`, COUNT(`frameworks`.`name`)
+FROM `languages`
+LEFT JOIN `frameworks` 
+ON `languages`.`id` = `frameworks`.`languagesId`
+GROUP BY `languages`.`name`
+HAVING COUNT(`frameworks`.`name`) > '3';
