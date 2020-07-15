@@ -26,7 +26,7 @@ CREATE DATABASE IF NOT EXISTS `codex` CHARACTER SET utf8;
 USE `codex`;
 CREATE TABLE `clients` 
 ( 
-    `id` INT PRIMARY KEY NOT NULL, 
+    `id` INT PRIMARY KEY AUTO_INCREMENT, 
     `lastname` VARCHAR(100),
     `firstname` VARCHAR(100),
     `birthDate` DATE,
@@ -122,3 +122,12 @@ SELECT * FROM `languages` ORDER BY `language`;
 
 
 -- partie 6
+
+SELECT * FROM `frameworks` WHERE `version` BETWEEN 2 AND 3;
+
+SELECT * FROM `frameworks` WHERE `id` IN (1, 3);
+
+SELECT * FROM `ide` WHERE `date` BETWEEN '2010-01-01' AND '2011-12-31' ;
+
+--partie 7
+
